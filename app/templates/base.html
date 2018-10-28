@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% block css %}
+    {% endblock %}
+    <style>
+        .navbar-right a{
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#">Brand</a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <div class="navbar-right my-2 my-lg-0">
+                    {% if current_user.is_authenticated %}
+                        <a href="#">{{current_user.name}}</a>
+                        <a href="{{url_for('web.logout')}}">退出</a>
+                    {% else %}
+                        <a class="" href="{{url_for('web.login')}}">登录</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

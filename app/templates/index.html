@@ -1,0 +1,33 @@
+{% extends "./base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+{% endblock %}
+{% block content %}
+    <div class="container wrapper">
+        <div class="left">
+            <div class="left-heading">
+                门店列表
+                <a class="float-right" href="{{url_for('web.shop_add')}}">添加门店</a>
+            </div>
+            <div class="list">
+                {% for shop in shops %}
+                    <div class="shop">
+                        <div>
+                            <a href="javascript:;" data-index="{{loop.index}}" class="shopName">{{shop.name}}</a>
+                            <a href="{{url_for('web.shop_delete', id=shop.id)}}" data-index="{{loop.index}}" class="delete float-right text-danger" href=""><small>删除</small></a>
+                        </div>
+                        <div class="shop-address">{{shop.province}}{{shop.city}}{{shop.area}}，{{shop.address}}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="content" class="content">
+
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://api.map.baidu.com/api?v=3.0&ak=IFGBl3dI3WlaABQh3cNm1UILTEUrTO0d"></script>
+<script src="{{url_for('static', filename='js/index.js')}}"></script>
+{% endblock %}

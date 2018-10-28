@@ -1,0 +1,51 @@
+.wrapper{
+    margin-top: 20px;
+}
+.wrapper::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+.left{
+    width: 260px;
+    height: 600px;
+    background-color: #f5f5f5;
+    float: left;
+}
+.content{
+    width: calc(100% - 280px);
+    height: 600px;
+    background-color: #f5f5f5;
+    float: right;
+}
+.left .form{
+    padding: 10px;
+}
+.left .left-heading{
+    background-color: #e3f2fd;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.list{
+    background-color: #ffffff;
+    border-left: 1px solid #f5f5f5;
+    border-right: 1px solid #f5f5f5;
+}
+.list .shop{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.list .shop + .shop{
+    border-top: 1px solid #dddddd;
+}
+.list .shop .shop-name{
+
+}
+.list .shop .shop-address{
+    font-size: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

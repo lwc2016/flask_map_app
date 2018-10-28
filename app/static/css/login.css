@@ -1,0 +1,16 @@
+.login{
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 160px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+.login .heading{
+    background-color: #e3f2fd;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 20px;
+}
+.login .form{
+    padding: 20px;
+}
