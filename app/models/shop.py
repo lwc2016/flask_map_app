@@ -3,7 +3,6 @@ from app import db
 from datetime import datetime
 from .location import Location
 
-
 class Shop(db.Model):
     """门店数据模型"""
     __tablename__ = "shops"
@@ -13,8 +12,10 @@ class Shop(db.Model):
     city = db.Column(db.String(20), nullable=False)
     area = db.Column(db.String(20), nullable=False)
     address = db.Column(db.String(60), nullable=False)
-    longitude = db.Column(db.Numeric(9, 6), nullable=False)
-    latitude = db.Column(db.Numeric(9, 6), nullable=False)
+    google_lng = db.Column(db.Numeric(18, 15), nullable=False)
+    google_lat = db.Column(db.Numeric(18, 15), nullable=False)
+    baidu_lng = db.Column(db.Numeric(18, 15), nullable=False)
+    baidu_lat = db.Column(db.Numeric(18, 15), nullable=False)
     createdTime = db.Column(db.DateTime, default=datetime.now)
 
     def toJson(self):
@@ -25,8 +26,10 @@ class Shop(db.Model):
             "city": self.city,
             "area": self.area,
             "address": self.address,
-            "longitude": float(self.longitude),
-            "latitude": float(self.latitude)
+            "google_lng": float(self.google_lng),
+            "google_lat": float(self.google_lat),
+            "baidu_lng": float(self.baidu_lng),
+            "baidu_lat": float(self.baidu_lat)
         }
 
     @classmethod

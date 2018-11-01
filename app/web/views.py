@@ -7,13 +7,19 @@ from app.models.user import User
 from app.models.shop import Shop
 from app.models.location import Location
 from . import blueprint
+from ..utils import map
 
 @blueprint.route("/")
 @login_required
 def index():
     shops = Shop.query.limit(8).all()
+    return render_template("index_baidu.html", shops=shops)
 
-    return render_template("index.html", shops=shops)
+@blueprint.route("/google")
+@login_required
+def google():
+    shops = Shop.query.limit(8).all()
+    return render_template("index_google.html", shops=shops)
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
@@ -49,6 +55,11 @@ def shop_add():
         form = AddShopForm()
         if form.validate_on_submit():
             # 判断门店是否存在
+            resp = map.googleToBaidu(form.data["longitude"], form.data["latitude"])
+
+            baidu_lng = resp["result"][0].get("x")
+            baidu_lat = resp["result"][0].get("y")
+
             if Shop.name_existed(form.data.get("name")):
                 flash({"name": ["门店已存在！"]})
                 return render_template("shop_save.html", provinces=provinces)
@@ -57,8 +68,10 @@ def shop_add():
                         city=form.data["city"],
                         area=form.data["area"],
                         address=form.data["address"],
-                        longitude=form.data["longitude"],
-                        latitude=form.data["latitude"]
+                        google_lng=form.data["longitude"],
+                        google_lat=form.data["latitude"],
+                        baidu_lng=baidu_lng,
+                        baidu_lat=baidu_lat
                         )
             db.session.add(shop)
             db.session.commit()

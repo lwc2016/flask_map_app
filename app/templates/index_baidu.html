@@ -1,0 +1,6 @@
+{% extends "./index_layout.html" %}
+{% block script %}
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://api.map.baidu.com/api?v=3.0&ak=IFGBl3dI3WlaABQh3cNm1UILTEUrTO0d"></script>
+<script src="{{url_for('static', filename='js/index.js')}}"></script>
+{% endblock %}

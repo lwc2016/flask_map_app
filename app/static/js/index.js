@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // 全局变量
-    var map = new BMap.Map("content");
+    var map = new BMap.Map("map");
     map.enableScrollWheelZoom();
 
     // 存放门店列表
@@ -21,7 +21,8 @@ $(document).ready(function(){
                 shops = resp.result || [];
                 shops.forEach((shop, index)=>{
                     // 以第一个数据为中心点
-                    let _point = new BMap.Point(shop.longitude, shop.latitude);
+                    let _point = new BMap.Point(shop.baidu_lng, shop.baidu_lat);
+                    console.log(shop);
                     if(index === 0){
                         setCenter(_point, 12)
                     }
@@ -35,7 +36,7 @@ $(document).ready(function(){
 
     // 设置地点图标
     function setMarker(shop){
-        let point = new BMap.Point(shop.longitude, shop.latitude);
+        let point = new BMap.Point(shop.baidu_lng, shop.baidu_lat);
         let marker = new BMap.Marker(point);
         map.addOverlay(marker);
         var opts = {
@@ -62,7 +63,7 @@ $(document).ready(function(){
     $(".shopName").click(function(){
        let index = $(this).data()["index"] - 1;
        let shop = shops[index];
-       let _point = new BMap.Point(shop.longitude, shop.latitude);
+       let _point = new BMap.Point(shop.baidu_lng, shop.baidu_lat);
        setCenter(_point, 12);
     });
 });

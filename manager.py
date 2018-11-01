@@ -26,6 +26,7 @@ def save_user(name, password):
 def save_location():
     """添加省市区"""
     locations = location.get()
+    print(locations)
     for item in locations:
         local = Location(code=item.get("code"), name=item.get("name"), provinceCode=item.get("provinceCode"), cityCode=item.get("cityCode"))
         db.session.add(local)
