@@ -17,7 +17,7 @@ $(document).ready(function(){
     var marker=new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         //animation:google.maps.Animation.BOUNCE
-        //draggable: true
+        draggable: true
     });
 
     marker.setMap(map);
@@ -60,6 +60,10 @@ $(document).ready(function(){
         var area = $("#area").val();
         var address = $("#address").val();
         var _address = province + "" + city + "" + area + "" + address;
+        if(province === "上海市" || province === "北京市" || province === "天津市" || province === "重庆市"){
+            _address = city + "" + area + "" + address;
+        }
+
         var geocoder = new google.maps.Geocoder();
 
         console.log(_address);
@@ -72,6 +76,8 @@ $(document).ready(function(){
                 var lng = results[0].geometry.location.lng();
 
                 setCenter(lat, lng);
+                setMaker(lat, lng);
+                setLngLat(lat, lng);
             } else {
                 console.log("Geocode was not successful for the following reason: " + status);
             }
@@ -82,10 +88,26 @@ $(document).ready(function(){
     function setCenter(lat, lng){
         var position = new google.maps.LatLng(lat, lng);
         map.setCenter(position);
+    }
+
+    function setMaker(lat, lng){
+        var position = new google.maps.LatLng(lat, lng);
         marker.setPosition(position);
-        console.log("lat: ", lat);
-        console.log("lng: ", lng);
+    }
+
+    function setLngLat(lat, lng){
         $("#longitude").val(lng);
         $("#latitude").val(lat);
     }
+
+    // 点击地图
+    google.maps.event.addListener(map, 'click', function(event) {
+        setMaker(event.latLng.lat(), event.latLng.lng());
+        setLngLat(event.latLng.lat(), event.latLng.lng());
+    });
+
+    // 标记拖动
+    google.maps.event.addListener(marker, 'drag', function() {
+        setLngLat(marker.getPosition().lat(), marker.getPosition().lng());
+    });
 });
