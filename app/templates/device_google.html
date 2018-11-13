@@ -1,0 +1,6 @@
+{% extends "./device.html" %}
+{% block script %}
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_LRBqM0Z0JGSf8qZ_rJRRQOzeROIphFI&language=zh-CN"></script>
+<script src="{{url_for('static', filename='js/device_google.js')}}"></script>
+{% endblock %}

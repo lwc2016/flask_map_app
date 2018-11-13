@@ -5,7 +5,12 @@ from flask_migrate import Migrate, MigrateCommand
 from app.models.user import User
 from app.models.shop import Shop
 from app.models.location import Location
+from app.models.device import Device
 from utils import location
+from app.utils import map
+import json
+import requests
+
 
 app = create_app()
 manager = Manager(app)
@@ -32,6 +37,18 @@ def save_location():
         db.session.add(local)
     db.session.commit()
 
+# 读取设备信息
+@manager.command
+def save_device():
+    """读取设备"""
+    with open("./utils/devices.json") as file:
+        rows = json.load(file)
+        for r in rows:
+            resp = map.googleToBaidu(r[2], r[1])
+            #print(resp)
+            device = Device(sn=r[0], google_lng=r[2], google_lat=r[1], baidu_lng=resp["result"][0]["x"], baidu_lat=resp["result"][0]["y"])
+            db.session.add(device)
+        db.session.commit()
 
 
 if __name__ == "__main__":

@@ -5,9 +5,11 @@ from flask_login import login_required, login_user, logout_user
 from .forms import LoginForm, AddShopForm
 from app.models.user import User
 from app.models.shop import Shop
+from app.models.device import Device
 from app.models.location import Location
 from . import blueprint
 from ..utils import map
+
 
 @blueprint.route("/")
 @login_required
@@ -87,3 +89,13 @@ def shop_delete(id):
     db.session.delete(shop)
     db.session.commit()
     return redirect(url_for("web.index"))
+
+@blueprint.route("/device/google", methods=["GET"])
+def device_google():
+    devices = Device.query.all()
+    return render_template("device_google.html", devices=devices)
+
+@blueprint.route("/device/baidu", methods=["GET"])
+def device_baidu():
+    devices = Device.query.all()
+    return render_template("device_baidu.html", devices=devices)

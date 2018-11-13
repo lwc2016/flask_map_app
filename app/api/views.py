@@ -4,6 +4,7 @@ from app import csrf
 from . import blueprint
 from app.models.location import Location
 from app.models.shop import Shop
+from app.models.device import Device
 
 @blueprint.route("/getCities", methods=["GET", "POST"])
 @csrf.exempt
@@ -33,3 +34,10 @@ def shopList():
     print(rows)
     shops = list(map(lambda item: item.toJson(), rows))
     return jsonify({"code": 0, "result": shops})
+
+@blueprint.route("/device/list", methods=["GET", "POST"])
+@csrf.exempt
+def deviceList():
+    rows = Device.query.all()
+    devices = list(map(lambda item: item.toJson(), rows))
+    return jsonify({"code": 0, "result": devices})
